@@ -1,6 +1,3 @@
-from math import gcd
-
-
 class Frac:
     """Klasa reprezentująca ułamek."""
 
