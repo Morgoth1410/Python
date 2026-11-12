@@ -10,26 +10,19 @@ class Frac:
     # Szukamy największego wspólnego dzielnika korzystając z
     # algorytmu euklidesa i potem dzielimy obie liczby
     # przez niego
-    def _simplify(self):
-        if self.y == 0:
-            raise ZeroDivisionError("Mianownik nie może być zerem.")
-
-        if self.x == 0:
-            self.y = 1
-            return
-
-        if self.y < 0:
-            self.x = -self.x
-            self.y = -self.y
-
-        nwd = self._gcd(self.x, self.y)
-        self.x //= nwd
-        self.y //= nwd
-
     def __init__(self, x=0, y=1):
-        self.x = x
-        self.y = y
-        self._simplify()
+        if y == 0:
+            raise ZeroDivisionError("Mianownik nie może być zerem.")
+        if x == 0:
+            self.x = 0
+            self.y = 1
+        else:
+            if y < 0:
+                x = -x
+                y = -y
+            nwd = self._gcd(x, y)
+            self.x = x // nwd
+            self.y = y // nwd
 
     def __str__(self):  # zwraca "x/y" lub "x" dla y=1
         if self.y == 1:
