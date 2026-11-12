@@ -4,36 +4,24 @@
 class Poly:
     """Klasa reprezentująca wielomiany."""
 
-    # Przepisany disambiguate.
-    # operujemy na elemencie obiektu
-    # Tak jak wcześniej idzie od tyłu
-    # i usuwa element jeśli to 0
-    # ale zamiast pojedynczego usunięcia
-    # del w każdej iteracji wywołuje
-    # funkcje pop()
-    def _disambiguate(self):
-        if not self.a:
-            self.a = [0]
-        while len(self.a) > 1 and self.a[-1] == 0:
-            self.a.pop()
-        self.size = len(self.a)
-
-    # wg Sedgewicka - tworzymy wielomian c*x^n
-    # Konstruktor
-    # Dopisałem że jeśli przekazywany argument to
-    # lista to od razu tworzymy całą liste
-    # zamiast jednego elementu wielomianu
-    # dzięki temu można definiować wielomian
-    # np. Poly([1, 2])
+    # Konstruktor wg Sedgewicka: tworzymy wielomian c*x^n
+    # Umożliwia też inicjalizację z listy współczynników,
+    # np. Poly([1, 2, 0]) -> 1 + 2x
     def __init__(self, c=0, n=0):
         if isinstance(c, (list, tuple)):
-            self.a = list(c)
-            self.size = len(self.a)
+            temp_a = list(c)
         else:
-            self.size = n + 1
-            self.a = self.size * [0]
-            self.a[self.size - 1] = c
-        self._disambiguate()
+            temp_a = (n + 1) * [0]
+            temp_a[n] = c
+
+        # Obcinanie końcowych zer
+        if not temp_a:
+            temp_a = [0]
+        while len(temp_a) > 1 and temp_a[-1] == 0:
+            temp_a.pop()
+
+        self.a = temp_a
+        self.size = len(self.a)
 
     def __str__(self):
         return str(self.a)
