@@ -1,6 +1,7 @@
 import random
-# yield zatrzymuje pętlę więc
-# kiedy 
+# yield zatrzymuje pętlę 
+# i wznawia przy wywołaniu 
+# next
 def zero_one():
     while True: 
         yield 0
@@ -9,11 +10,11 @@ def zero_one():
 def random_direction():
     direction = ("N", "E", "S", "W")
     while True:
-        yield random.choice(direction)
+        yield random.choice(direction) # Zwraca randomowy element z direction
 
 def days_of_the_week():
     while True:
-        yield from range(7)
+        yield from range(7) # Tak jak pętla for i in range(7) yield i
 
 gen1 = zero_one()
 for i in range(10):
