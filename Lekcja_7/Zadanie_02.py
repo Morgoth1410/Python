@@ -4,13 +4,9 @@
 class Poly:
     """Klasa reprezentująca wielomiany."""
 
-    # Przepisany disambiguate.
-    # operujemy na elemencie obiektu
-    # Tak jak wcześniej idzie od tyłu
-    # i usuwa element jeśli to 0
-    # ale zamiast pojedynczego usunięcia
-    # del w każdej iteracji wywołuje
-    # funkcje pop()
+    # Idzie od tyłu i usuwa niepotrzebne 0
+    # nie w konstruktorze bo używana w 
+    # __setitem__
     def _disambiguate(self):
         if not self.a:
             self.a = [0]
@@ -20,11 +16,9 @@ class Poly:
 
     # wg Sedgewicka - tworzymy wielomian c*x^n
     # Konstruktor
-    # Dopisałem że jeśli przekazywany argument to
-    # lista to od razu tworzymy całą liste
-    # zamiast jednego elementu wielomianu
-    # dzięki temu można definiować wielomian
-    # np. Poly([1, 2])
+    # Dodatkowo obsługuje wywołanie
+    # np Poly([1,2,3]) i Poly((1,2,3))
+    # 1x^0 + 2x^1 + 3x^2
     def __init__(self, c=0, n=0):
         if n < 0:
             raise ValueError("Poly nie obsługuje ujemnych potęg")
